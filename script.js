@@ -2,6 +2,46 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/burgerMenu.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/burgerMenu.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const burgerMenu = (btnSelector, contentSelector, itemSelector, socialSelector) => {
+  const btn = document.querySelector(btnSelector),
+    menu = document.querySelector(contentSelector),
+    menuLinks = document.querySelectorAll(itemSelector),
+    menuSocialItem = document.querySelectorAll(socialSelector);
+  btn.addEventListener('click', () => {
+    toggleMenu();
+  });
+  menuLinks.forEach(item => {
+    item.addEventListener('click', () => {
+      toggleMenu();
+    });
+  });
+  menuSocialItem.forEach(item => {
+    item.addEventListener('click', () => {
+      toggleMenu();
+    });
+  });
+  function toggleMenu() {
+    if (menu.style.display == 'none') {
+      menu.style.display = 'block';
+    } else {
+      menu.style.display = 'none';
+    }
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (burgerMenu);
+
+/***/ }),
+
 /***/ "./src/js/modules/dropdown.js":
 /*!************************************!*\
   !*** ./src/js/modules/dropdown.js ***!
@@ -117,9 +157,12 @@ var __webpack_exports__ = {};
   \************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dropdown */ "./src/js/modules/dropdown.js");
+/* harmony import */ var _modules_burgerMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/burgerMenu */ "./src/js/modules/burgerMenu.js");
+
 
 document.addEventListener('DOMContentLoaded', () => {
   (0,_modules_dropdown__WEBPACK_IMPORTED_MODULE_0__["default"])('.header__dropdown-btn', '.header__dropdown-items', '.current__lenguage-icon', '.current__lenguage-text', '.header__dropdown-item');
+  (0,_modules_burgerMenu__WEBPACK_IMPORTED_MODULE_1__["default"])('.burger__menu-btn', '.burger__menu-wrapper', '.burger__menu-item', '.menu__social-item');
 });
 })();
 
