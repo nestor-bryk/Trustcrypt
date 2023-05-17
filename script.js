@@ -2,20 +2,54 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/modules/modul.js":
-/*!*********************************!*\
-  !*** ./src/js/modules/modul.js ***!
-  \*********************************/
+/***/ "./src/js/modules/dropdown.js":
+/*!************************************!*\
+  !*** ./src/js/modules/dropdown.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const getName = name => {
-  console.log(name);
+const dropdown = (btnSelector, dropdownSelector, currentIconSelector, currentTextSelector, dropdownItemSelector) => {
+  const dropdownBtn = document.querySelector(btnSelector),
+    dropdownMenu = document.querySelector(dropdownSelector),
+    currentIcon = document.querySelector(currentIconSelector),
+    currentText = document.querySelector(currentTextSelector),
+    dropdownElements = document.querySelectorAll(dropdownItemSelector);
+  const links = {
+    arrowUp: './assets/icons/dropdown/arrow-up.svg',
+    arrowDown: './assets/icons/dropdown/arrow-down.svg'
+  };
+  function openMenu() {
+    dropdownBtn.addEventListener('click', e => {
+      if (e.target && e.target.tagName == 'IMG' && e.target.classList.contains('arrow-down')) {
+        checkingValues(links.arrowUp, 'arrow-up', 'block');
+      } else {
+        checkingValues(links.arrowDown, 'arrow-down', 'none');
+      }
+    });
+  }
+  function chooseElement() {
+    dropdownElements.forEach(elem => {
+      elem.addEventListener('click', e => {
+        currentIcon.setAttribute('src', elem.firstChild.getAttribute('src'));
+        currentText.textContent = elem.lastChild.textContent;
+        checkingValues(links.arrowDown, 'arrow-down', 'none');
+      });
+    });
+  }
+  function checkingValues(link, seletor, display) {
+    dropdownBtn.innerHTML = `
+            <img class="${seletor}" src="${link}" alt="${seletor}">
+        `;
+    dropdownMenu.style.display = display;
+  }
+  openMenu();
+  chooseElement();
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getName);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dropdown);
 
 /***/ })
 
@@ -82,9 +116,11 @@ var __webpack_exports__ = {};
   !*** ./src/js/main.js ***!
   \************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_modul__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modul */ "./src/js/modules/modul.js");
+/* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dropdown */ "./src/js/modules/dropdown.js");
 
-(0,_modules_modul__WEBPACK_IMPORTED_MODULE_0__["default"])('alex');
+document.addEventListener('DOMContentLoaded', () => {
+  (0,_modules_dropdown__WEBPACK_IMPORTED_MODULE_0__["default"])('.header__dropdown-btn', '.header__dropdown-items', '.current__lenguage-icon', '.current__lenguage-text', '.header__dropdown-item');
+});
 })();
 
 /******/ })()
