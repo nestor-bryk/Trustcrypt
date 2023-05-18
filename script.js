@@ -91,6 +91,70 @@ const dropdown = (btnSelector, dropdownSelector, currentIconSelector, currentTex
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dropdown);
 
+/***/ }),
+
+/***/ "./src/js/modules/slider.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/slider.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const slider = _ref => {
+  let {
+    container,
+    slide,
+    wrapper,
+    field
+  } = _ref;
+  const slider = document.querySelector(container),
+    slides = document.querySelectorAll(slide),
+    slidesWrapper = document.querySelector(wrapper),
+    slidesField = document.querySelector(field),
+    width = window.getComputedStyle(slidesWrapper).width;
+  let slideIndex = 1;
+  let offset = 0;
+  slidesField.style.width = 100 * slides.length + '%';
+  slidesField.style.display = 'flex';
+  slidesField.style.transition = '0.5s all';
+  slidesWrapper.style.overflow = 'hidden';
+  slides.forEach(item => {
+    item.style.width = width;
+  });
+  slider.style.position = 'relative';
+  const indicators = document.createElement('ol'),
+    dots = [];
+  indicators.classList.add('carousel-indicators');
+  slider.append(indicators);
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('li');
+    dot.setAttribute('data-slide-to', i + 1);
+    dot.classList.add('dot');
+    if (i == 0) {
+      dot.style.opacity = 1;
+    }
+    indicators.append(dot);
+    dots.push(dot);
+  }
+  function deleteNotDigits(str) {
+    return +str.replace(/\D/g, '');
+  }
+  dots.forEach(dot => {
+    dot.addEventListener('click', e => {
+      const slideTo = e.target.getAttribute('data-slide-to');
+      slideIndex = slideTo;
+      offset = deleteNotDigits(width) * (slideTo - 1);
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      dots.forEach(dot => dot.style.opacity = '.5');
+      dots[slideIndex - 1].style.opacity = 1;
+    });
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
+
 /***/ })
 
 /******/ 	});
@@ -158,11 +222,19 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dropdown */ "./src/js/modules/dropdown.js");
 /* harmony import */ var _modules_burgerMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/burgerMenu */ "./src/js/modules/burgerMenu.js");
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
   (0,_modules_dropdown__WEBPACK_IMPORTED_MODULE_0__["default"])('.header__dropdown-btn', '.header__dropdown-items', '.current__lenguage-icon', '.current__lenguage-text', '.header__dropdown-item');
   (0,_modules_burgerMenu__WEBPACK_IMPORTED_MODULE_1__["default"])('.burger__menu-btn', '.burger__menu-wrapper', '.burger__menu-item', '.menu__social-item');
+  (0,_modules_slider__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    container: '.slider',
+    slide: '.slide',
+    wrapper: '.slider-wrapper',
+    field: '.slider-inner'
+  });
 });
 })();
 
