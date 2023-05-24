@@ -42,6 +42,38 @@ const burgerMenu = (btnSelector, contentSelector, itemSelector, socialSelector) 
 
 /***/ }),
 
+/***/ "./src/js/modules/checkbox.js":
+/*!************************************!*\
+  !*** ./src/js/modules/checkbox.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const checkbox = (checkboxSelector, checkboxCustomSelector, checkboxCustomCircleSelector) => {
+  const checkbox = document.querySelector(checkboxSelector),
+    checkboxCustom = document.querySelector(checkboxCustomSelector),
+    circle = document.querySelector(checkboxCustomCircleSelector),
+    backgroundColorCheckbox = 'background: rgba(255, 255, 255, 0.05)',
+    backgroundColorCircle = 'rgba(255, 255, 255, 0.1)';
+  checkboxCustom.addEventListener('click', () => {
+    if (checkbox.getAttribute('checked') == null) {
+      checkboxCustom.style.cssText = `background: #0FAE96;`;
+      circle.style.cssText = `background: #fff; left: 22px;`;
+      checkbox.setAttribute('checked', true);
+    } else {
+      checkboxCustom.style.cssText = `${backgroundColorCheckbox};`;
+      circle.style.cssText = `background: ${backgroundColorCircle}; left: 2px;`;
+      checkbox.removeAttribute('checked');
+    }
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (checkbox);
+
+/***/ }),
+
 /***/ "./src/js/modules/dropdown.js":
 /*!************************************!*\
   !*** ./src/js/modules/dropdown.js ***!
@@ -223,6 +255,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_dropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dropdown */ "./src/js/modules/dropdown.js");
 /* harmony import */ var _modules_burgerMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/burgerMenu */ "./src/js/modules/burgerMenu.js");
 /* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+/* harmony import */ var _modules_checkbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/checkbox */ "./src/js/modules/checkbox.js");
+
 
 
 
@@ -235,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wrapper: '.slider-wrapper',
     field: '.slider-inner'
   });
+  (0,_modules_checkbox__WEBPACK_IMPORTED_MODULE_3__["default"])('#checkbox', '.checkbox__custom', '.checkbox__custom-circle');
 });
 })();
 
